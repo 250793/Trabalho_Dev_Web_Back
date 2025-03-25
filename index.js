@@ -17,6 +17,14 @@ const app = express();
 const port = 3001;
 /*const supabase = createClient(url, apiKey);*/
 app.use(cors());
+app.use(
+  cors({
+    origin: "*", // Ou coloque a URL do seu frontend aqui
+    methods: "GET,POST,PUT,DELETE",
+    allowedHeaders: "Content-Type,Authorization",
+  })
+);
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
@@ -76,24 +84,22 @@ const cadastroindividual = async (req, res) => {
   } = req.body;
 
   try {
-    const response = await supabase
-      .from("novos_convertidos")
-      .insert([
-        {
-          nome,
-          data_nascimento,
-          sexo,
-          telefone,
-          cep,
-          cidade,
-          logradouro,
-          numero_casa,
-          bairro,
-          lider,
-          pastor,
-          campus,
-        },
-      ]);
+    const response = await supabase.from("novos_convertidos").insert([
+      {
+        nome,
+        data_nascimento,
+        sexo,
+        telefone,
+        cep,
+        cidade,
+        logradouro,
+        numero_casa,
+        bairro,
+        lider,
+        pastor,
+        campus,
+      },
+    ]);
     console.log(response);
     res.status(201).json();
   } catch (error) {

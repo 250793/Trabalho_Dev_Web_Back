@@ -59,8 +59,12 @@ const upload = multer({
   },
 });
 
-const home = (req, res) => {
+/*const home = (req, res) => {
   res.sendFile("index.html", { root: __dirname });
+};*/
+
+const home = (req, res) => {
+  res.send("API do Cadastro está rodando!");
 };
 
 const helloworld = (req, res) => {
